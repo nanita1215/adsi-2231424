@@ -23,7 +23,7 @@
     <script>
         /* Square - - - - - - - - - */
         var canvas = document.getElementById('square');
-        var ctx = canvas.getContext('2d');
+        var contxt = canvas.getContext('2d');
         contxt.fillStyle = '#53aa88';
         contxt.fillRect(0,0,100, 100);
         /* Rectangle - - - - - - - - - */
@@ -51,6 +51,16 @@
         /* Heart - - - - - - - - - */
         var canvas = document.getElementById('heart');
         var contxt = canvas.getContext('2d');
+        contxt.fillStyle = '#53aa88';
+        contxt.beginPath();
+        contxt.moveTo(75,40);
+        contxt.bezierCurveTo(75,37,70,25,50,25);
+        contxt.bezierCurveTo(20,25,20,62.5,20,62.5);
+        contxt.bezierCurveTo(20,80,40,102,75,120);
+        contxt.bezierCurveTo(110,102,130,80,130,62.5);
+        contxt.bezierCurveTo(130,62.5,130,25,100,25);
+        contxt.bezierCurveTo(85,25,75,37,75,40);
+        contxt.fill();
         /* Text - - - - - - - - - */
         var canvas = document.getElementById('text');
         var contxt = canvas.getContext('2d');
