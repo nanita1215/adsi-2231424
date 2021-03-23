@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Selectors</title>
+    <style>
+        ul > li {
+            background-color: cadetblue;
+            margin: 5px;
+            padding: 5px;
+        }
+        ul li + li + li {
+            background-color: yellowgreen;
+        }
+        li[class] {
+            background-color: orchid;
+        }
+    </style>
+</head>
+<body>
+    <h1>Advanced Selectors</h1>
+
+    <h2>Children Selector: ul > li</h2>
+    <h2>Adjacent Selector: ul li + li + li</h2>
+    <h2>Attribute Selector: li[class]</h2>
+
+    <ol>
+        <li>
+            Kimetsu No Yaiba
+            <ul>
+                <li class="highlight">Tanjiro</li>
+                <li>Zenitsu</li>
+                <li>Inosuke</li>
+                <li>Nezuko</li>
+            </ul>
+        </li>
+        <li>
+            Shingeki No Kyojin
+            <ul>
+                <li class="highlight">Eren</li>
+                <li>Mikasa</li>
+                <li>Armin</li>
+                <li>Levy</li>
+            </ul>
+        </li>
+    </ol>
+
+</body>
+</html>
