@@ -1,0 +1,27 @@
+
+body {
+    background-color: #5d745a;
+    color: #333;
+    font: 16px Arial;
+}
+
+main {
+    background-color: #fff;
+    border: 2px solid #40503e;
+    margin: 20px auto;
+    padding: 10px;
+    width: 800px;
+}
+
+main h1 {
+    background-color: #40503e;
+    border-bottom: 10px solid #5d745a;
+    color: #fff;
+    margin: 0px;
+    padding: 10px;
+    text-align: center;
+}
+
+main h3 {
+    text-align: center;
+}

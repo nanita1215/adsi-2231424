@@ -13,24 +13,21 @@
         main section div {
             border: 1px solid #777;
             display: inline-block;
+            height: 82px;
+            vertical-align: top;
             width: 160px;
         }
-        main section div.va1 { vertical-align: baseline; }
-        main section div.va2 { vertical-align: top;      }
-        main section div.va3 {
-            height: 84px;
-            position: relative;
-            top: -36px;
-        }
+        main section div.va1 span { vertical-align: baseline; }
+        main section div.va2 span { vertical-align: top;      }
         main section div.va3 img { vertical-align: middle;   }
     </style>
 </head>
 <body>
     <main>
         <section>
-            <div class="va1"><img src="imgs/icon-help.png" width="80px">Baseline</div>
-            <div class="va2"><img src="imgs/icon-help.png" width="80px">Top</div>
-            <div class="va3"><img src="imgs/icon-help.png" width="80px">Middle</div>
+            <div class="va1"><img src="imgs/icon-help.png" width="80px"><span>Baseline</span></div>
+            <div class="va2"><img src="imgs/icon-help.png" width="80px"><span>Top</span></div>
+            <div class="va3"><img src="imgs/icon-help.png" width="80px"><span>Middle</span></div>
         </section>
     </main>
 </body>
