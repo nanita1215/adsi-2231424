@@ -68,6 +68,7 @@
             font-weight: 400;
             font-size: 64px;
             opacity: 0.8;
+            overflow: hidden;
             margin: 0;
         }
         /* nav.buttons - - - - - - - - - - - - - - - - - - - - */
@@ -258,23 +259,23 @@
                     <ul>
                         <li id="bt-clear"></li>
                         <li id="bt-bs"></li>
-                        <li id="bt-pow"></li>
-                        <li id="bt-div"></li>
-                        <li id="bt-1"></li>
-                        <li id="bt-2"></li>
-                        <li id="bt-3"></li>
-                        <li id="bt-prod"></li>
-                        <li id="bt-4"></li>
-                        <li id="bt-5"></li>
-                        <li id="bt-6"></li>
-                        <li id="bt-subs"></li>
-                        <li id="bt-7"></li>
-                        <li id="bt-8"></li>
-                        <li id="bt-9"></li>
-                        <li id="bt-add"></li>
-                        <li id="bt-per"></li>
-                        <li id="bt-0"></li>
-                        <li id="bt-dot"></li>
+                        <li id="bt-pow"  data-opr="^"></li>
+                        <li id="bt-div"  data-opr="/"></li>
+                        <li id="bt-1"    data-num="1"></li>
+                        <li id="bt-2"    data-num="2"></li>
+                        <li id="bt-3"    data-num="3"></li>
+                        <li id="bt-prod" data-opr="*"></li>
+                        <li id="bt-4"    data-num="4"></li>
+                        <li id="bt-5"    data-num="5"></li>
+                        <li id="bt-6"    data-num="6"></li>
+                        <li id="bt-subs" data-opr="-"></li>
+                        <li id="bt-7"    data-num="7"></li>
+                        <li id="bt-8"    data-num="8"></li>
+                        <li id="bt-9"    data-num="9"></li>
+                        <li id="bt-add"  data-opr="+"></li>
+                        <li id="bt-per"  data-opr="%"></li>
+                        <li id="bt-0"    data-num="0"></li>
+                        <li id="bt-dot"  data-opr="."></li>
                         <li id="bt-equal"></li>     
                     </ul>
                 </nav>
@@ -285,19 +286,19 @@
     <script>
         // Variables & Constants - - - - - - - - - - - - - - - -
         var nchars    = 0;
+        var allowOper = false;
         var operation = document.getElementById('operation');
-        var anwser    = document.getElementById('anwser');
-
+        var answer    = document.getElementById('answer');
+        //
         const skin  = document.querySelector('div.calculator');
         const light = document.getElementById('light');
         const dark  = document.getElementById('dark');
-
-        const bt1 = document.getElementById('bt-1');
-        const bt2 = document.getElementById('bt-2');
-        const bt3 = document.getElementById('bt-3');
-
+        //
+        const btsNums = document.querySelectorAll('ul li[data-num]');
+        const btsOprs = document.querySelectorAll('ul li[data-opr]');
         const btClear = document.getElementById('bt-clear');
-
+        const btBackS = document.getElementById('bt-bs');
+        const btEqual = document.getElementById('bt-equal');
         // Functions - - - - - - - - - - - - - - - -
         function validateLength() {
             if(nchars <= 28) {
@@ -307,38 +308,64 @@
                 return false;
             }
         }
-
         function addCharacter(c) {
-            if(validateLength()) {
-                operation.innerText += c;
+            if(c.constructor.name == 'Number') {
+                allowOper = true;
+            }
+            if(allowOper) {
+                if(validateLength()) {
+                    operation.innerText += c;
+                    if(c.constructor.name == 'String') {
+                        allowOper = false;
+                    }
+                }
             }
         }
         function clearCharacters() {
             operation.innerText = '';
-            anwser.innerText = '';
-            nchars = 0;
+            answer.innerText    = '';
+            nchars              = 0;
+            allowOper           = false;
         }
-
-        // Events - - - - - - - - - - - - - - - -
+        function backSpace() {
+            if(nchars > 0) {
+                operation.innerText = operation.innerText.slice(0, -1);
+                nchars--;
+            }
+        }
+        function equal() {
+            answer.innerText = eval(operation.innerText);
+        }
+        // Events Click - - - - - - - - - - - - - - - -
         light.onclick = function() {
             skin.classList.remove('dark');
         }
         dark.onclick = function() {
             skin.classList.add('dark');
         }
-
-        bt1.onclick = function() {
-            addCharacter(1);
+        for (let i = 0; i < btsNums.length; i++) {
+            btsNums[i].onclick = function() {
+                addCharacter(parseInt(this.getAttribute('data-num')));
+                // var elm = this
+                // elm.classList.add('active')
+                // setTimeout(function() {
+                //     elm.classList.remove('active')
+                // }, 1500);
+            }
         }
-        bt2.onclick = function() {
-            addCharacter(2);
+        for (let i = 0; i < btsOprs.length; i++) {
+            btsOprs[i].onclick = function() {
+                addCharacter(this.getAttribute('data-opr'));
+            }
         }
-        bt3.onclick = function() {
-            addCharacter(3);
-        }
-
         btClear.onclick = function() {
             clearCharacters();
+        }
+        btBackS.onclick = function() {
+            backSpace();
+        }
+        btEqual.onclick = function() {
+            equal();
         }
 
     </script>
