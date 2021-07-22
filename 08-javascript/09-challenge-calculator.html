@@ -259,7 +259,7 @@
                     <ul>
                         <li id="bt-clear"></li>
                         <li id="bt-bs"></li>
-                        <li id="bt-pow"  data-opr="^"></li>
+                        <li id="bt-pow"  data-opr="**"></li>
                         <li id="bt-div"  data-opr="/"></li>
                         <li id="bt-1"    data-num="1"></li>
                         <li id="bt-2"    data-num="2"></li>
@@ -366,6 +366,75 @@
         }
         btEqual.onclick = function() {
             equal();
+        }
+        // Keyboard Events
+        document.onkeyup = function(event) {
+            //console.log(event.keyCode);
+            switch (event.keyCode) {
+                case 8:
+                    backSpace();
+                    break;
+                case 13:
+                    equal();
+                    break;
+                case 46:
+                    clearCharacters();
+                    break;
+                case 48:
+                    addCharacter(0);
+                    break;
+                case 49:
+                    addCharacter(1);
+                    break;
+                case 50:
+                    addCharacter(2);
+                    break;
+                case 51:
+                    addCharacter(3);
+                    break;
+                case 52:
+                    addCharacter(4);
+                    break;
+                case 53:
+                    if(event.shiftKey )
+                        addCharacter('%');
+                    else
+                        addCharacter(5);
+                    break;
+                case 54:
+                    addCharacter(6);
+                    break;
+                case 55:
+                    addCharacter(7);
+                    break;
+                case 56:
+                    addCharacter(8);
+                    break;
+                case 57:
+                    addCharacter(9);
+                    break;
+                case 187:
+                    addCharacter('+');
+                    break;
+                case 189:
+                    addCharacter('-');
+                    break;
+                case 190:
+                    addCharacter('.');
+                    break;
+                case 191:
+                    addCharacter('/');
+                    break;
+                case 219:
+                    addCharacter('**');
+                    break;
+                case 221:
+                    addCharacter('*');
+                    break;
+            
+                default:
+                    break;
+            }
         }
 
     </script>
