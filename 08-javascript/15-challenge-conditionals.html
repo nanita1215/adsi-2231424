@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge Conditionals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        html {
+            font-size: 16px;
+        }
+        figure.conditional {
+            background-color: #fff3f1;
+            border: 1px solid #f19d8f;
+            border-radius: 16px;
+            height: 840px;
+            margin: 20px auto;
+            position: relative;
+            width: 480px;
+        }
+        figure.conditional h2,
+        figure.conditional h4 {
+            font-family: Montserrat;
+            font-style: normal;
+            letter-spacing: -0.04em;
+            position: absolute;
+        }
+
+        figure.conditional h2 {
+            background: none;
+            color: #f19d8f;
+            font-weight: 600;
+            font-size: 36px;
+            text-align: center;
+            top: -2px;
+        }
+        figure.conditional h4 {
+            color: #4b5369;
+            font-weight: 500;
+            font-size: 20px;
+        }
+        figure.conditional h4.lgender {
+            top: 156px;
+            left: 142px;
+        }
+        figure.conditional input[type=checkbox] {
+            cursor: pointer;
+            -webkit-appearance: none;
+            position: absolute;
+            height: 207px;
+            top: 222px;
+            width: 160px;
+            transition: all 0.2s ease-in;
+        }
+        figure.conditional input[type=checkbox]:hover {
+            transform: scale(1.1);
+        }
+        figure.conditional input#c-male {
+            background: transparent url(imgs/conditionals/c-boy.svg) no-repeat center;
+            left: 48px;   
+        }
+        figure.conditional input#c-male:checked {
+            background: transparent url(imgs/conditionals/c-boy-active.svg) no-repeat center; 
+        }
+        figure.conditional input#c-female {
+            background: transparent url(imgs/conditionals/c-girl.svg) no-repeat center;
+            left: 268px;
+        }
+        figure.conditional input#c-female:checked {
+            background: transparent url(imgs/conditionals/c-girl-active.svg) no-repeat center;
+        }
+        figure.conditional h4.lfullname {
+            top: 418px;
+            left: 40px;
+        }
+        figure.conditional h4.lbirthdate {
+            top: 548px;
+            left: 40px;
+        }
+        figure.conditional input[type=text],
+        figure.conditional input[type=date] {
+            border: none;
+            height: 60px;
+            color: #f19d8f;
+            font-weight: 500;
+            font-size: 20px;
+            font-family: Montserrat;
+            font-style: normal;
+            letter-spacing: -0.04em;
+            left: 40px;
+            text-indent: 50px;
+            outline: none;
+            position: absolute;
+            width: 400px;
+        }
+        figure.conditional input[type=text] {
+            background: transparent url(imgs/conditionals/i-fullname.svg) no-repeat center;
+            top: 480px;
+        }
+        figure.conditional input[type=date] {
+            background: transparent url(imgs/conditionals/i-date.svg) no-repeat center;
+            top: 610px;
+            text-indent: 16px;
+        }
+        figure.conditional button {
+            background: #f19d8f;
+            border-radius: 50px;
+            border: none;
+            color: #fff;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 29px;
+            letter-spacing: -0.04em;
+            height: 70px;
+            left: 40px;
+            position: absolute;
+            top: 737px;
+            text-transform: uppercase;
+            width: 400px;
+            transition: all 0.2s ease-in;
+        }
+        figure.conditional button:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+        }
+
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <h1> <span><a href="index.html">&larr;</a></span> Challenge Conditionals</h1>
+        </header>
+        <section>
+            <figure class="conditional">
+                <h2>Please fill in the true information</h2>
+                <h4 class="lgender">Choose your gender:</h4>
+                <input type="checkbox" id="c-male">
+                <input type="checkbox" id="c-female">
+                <h4 class="lfullname">Fullname:</h4>
+                <input type="text" id="fullname">
+                <h4 class="lbirthdate">Birthdate:</h4>
+                <input type="date" id="birthdate">
+                <button id="btv">Verify</button>
+            </figure>
+        </section>
+    </main>
+
+    <script>
+        // Variables
+        const circles = document.querySelectorAll('input[type=checkbox]');
+        // Events
+        for (let i = 0; i < circles.length; i++) {
+            circles[i].onclick = function() {
+                if(this.checked) {
+                    circles[0].checked = false;
+                    circles[1].checked = false;
+                    this.checked = true;
+                }
+            }
+        }
+    </script>
+    
+</body>
+</html>

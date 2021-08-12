@@ -1,0 +1,330 @@
+/* - - - - - - - - - - - - - - - - - - - - - */
+/* html */
+/* - - - - - - - - - - - - - - - - - - - - - */
+html {
+    color: #8a8a8a;
+    font-family: Montserrat;
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+/* - - - - - - - - - - - - - - - - - - - - - */
+/* main */
+/* - - - - - - - - - - - - - - - - - - - - - */
+main {
+    margin: 0px auto;
+    width: 1124px;
+}
+/* - - - - - - - - - - - - - - - - - - - - - */
+/* header.home */
+/* - - - - - - - - - - - - - - - - - - - - - */
+header.home nav.menu {
+    background-color: #ffffff;
+    box-shadow: 2px 2px 12px #00000033;
+    position: fixed;
+    height: 100px;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    z-index: 100;
+}
+header.home nav.menu div.center {
+    margin: 0px auto;
+    position: relative;
+    width: 1124px;
+}
+header.home nav.menu a.logo,
+header.home nav.menu ul {
+    position: absolute;
+}
+header.home nav.menu a.logo {
+    top: 4px;
+    left: 0px;
+}
+header.home nav.menu ul {
+    list-style: none;
+    padding: 0;
+    position: relative;
+    top: 20px;
+    left: 100px;
+    width: 460px;
+}
+header.home nav.menu ul li {
+    display: inline-block;
+    margin-right: 28px;
+    vertical-align: top;
+}
+header.home nav.menu ul li a:link,
+header.home nav.menu ul li a:visited {
+    color: #8a8a8a;
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease-in;
+}
+header.home nav.menu ul li a:hover {
+    color: #d1302d;
+}
+header.home h1 {
+    color: #d1302d;
+    font-size: 80px;
+    font-weight: 500;
+    padding-top: 200px;;
+    width: 540px;
+}
+header.home h1 small {
+    color: #8a8a8a;
+    display: block;
+    font-size: 36px;
+    font-weight: 400;
+    text-indent: 140px;
+}
+header.home p {
+    line-height: 26px;
+    margin-bottom: 50px;
+    text-align: justify;
+    width: 540px;
+}
+header.home button {
+    background-color: #d1302d;
+    border: none;
+    border-radius: 40px;
+    color: #fff;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 20px 50px;
+    transition: transform 0.2s ease-in;
+}
+header.home button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+header.home figure.mario-top {
+    position: relative;
+}
+header.home figure.mario-top img {
+    position: absolute;
+    bottom: 0px;
+    right: -40px;
+}
+
+header.home:hover figure.mario-top img {
+    animation: animMarioTop 2.4s ease-in 1;
+}
+@keyframes animMarioTop {
+    0%   { transform: rotate(0deg);   }
+    100% { transform: rotate(360deg); }
+}
+/* - - - - - - - - - - - - - - - - - - - - - */
+/* section.historia */
+/* - - - - - - - - - - - - - - - - - - - - - */
+section.historia {
+    background-color: #d1302d;
+    border-radius: 40px;
+    color: #fff;
+    height: 560px;
+    margin: 200px 0px 50px 0px;
+    position: relative;
+}
+section.historia figure.mario-history {
+    margin: 0;      
+    position: relative;
+}
+section.historia figure.mario-history img {
+    position: absolute;
+    left: 80px;
+    top: 26px;
+}
+section.historia:hover figure.mario-history img {
+    animation: animMarioHistory 1s ease-in 1;
+}
+@keyframes animMarioHistory {
+    0%,100%   { transform: translateY(0px);   }
+    50%       { transform: translateY(-100px); }
+}
+section.historia article {
+    position: absolute;
+    right: 120px;
+    top: 60px;
+    width: 480px;
+}
+section.historia article h2 {
+    font-size: 48px;
+    font-weight: 500;
+}
+section.historia article p {
+    font-weight: 400;
+    line-height: 26px;
+    text-align: justify;
+}
+/* - - - - - - - - - - - - - - - - - - - - - */
+/* section.personajes */
+/* - - - - - - - - - - - - - - - - - - - - - */
+section.personajes h2 {
+    color: #d1302d;
+    font-size: 48px;
+    font-weight: 500;
+    text-align: center;
+}
+section.personajes p {
+    max-width: 480px;
+    margin: 0px auto 80px auto;
+    text-align: center;
+}
+section.personajes p span {
+    color: #d1302d;
+}
+section.personajes div {
+    display: inline-block;
+    height: 358px;
+    margin: 20px 50px;
+    position: relative;
+    width: 442px;
+}
+section.personajes div.bg1 {
+    background: url(../imgs/bg01.svg) no-repeat center;
+}
+section.personajes div.bg2 {
+    background: url(../imgs/bg02.svg) no-repeat center;
+}
+section.personajes div figure.character {
+    position: relative;
+}
+section.personajes div figure.character img {
+    position: absolute;
+}
+section.personajes div figure.character.char01 img {
+    top: 200px;
+    left: -20px;
+}
+section.personajes div figure.character.char03 img {
+    top: 160px;
+    left: 0px;
+}
+section.personajes div figure.character.char02 img,
+section.personajes div figure.character.char04 img {
+    top: 120px;
+    left: 10px;
+}
+section.personajes div:hover figure.character img {
+    animation: animCharacter 1s ease-in 1;
+}
+@keyframes animCharacter {
+    0%,100%   { transform: scale(1);   }
+    50%       { transform: scale(1.2); }
+}
+section.personajes div article {
+    position: absolute;
+    right: 40px;
+    top: 40px;
+    width: 220px;
+}
+section.personajes div article h3 {
+    color: #d1302d;
+    font-size: 24px;
+    font-weight: 500;
+}
+section.personajes div article p {
+    margin: 20px 0 20px 0;
+    text-align: justify;
+}
+section.personajes div article button {
+    border: none;
+    background: transparent url(../imgs/arrow-right.svg) no-repeat right;
+    color: #8a8a8a;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+    position: relative;
+    left: 120px;
+    transition: transform 0.2s ease-in;
+    width: 100px;
+}
+section.personajes div article button:hover {
+    color: #d1302d;
+    cursor: pointer;
+    transform: translateX(4px);
+}
+/* - - - - - - - - - - - - - - - - - - - - - */
+/* section.contacto */
+/* - - - - - - - - - - - - - - - - - - - - - */
+section.contacto {
+    background-color: #d1302d;
+    color: #fff;
+    border-radius: 40px;
+    height: 700px;
+    margin: 200px 0px;
+    position: relative;
+}
+section.contacto figure.mario-contact {
+    position: relative;
+}
+section.contacto figure.mario-contact img {
+    position: absolute;
+    top: 70px;
+    right: 80px;
+}
+section.contacto:hover figure.mario-contact img {
+    animation: animMarioContact 2s ease-in 1;
+}
+@keyframes animMarioContact {
+    0%, 100%  { transform: translateX(0px) scale(1); }
+    50%       { transform: translateX(-120px) scale(1.1); }
+}
+section.contacto form {
+    position: absolute;
+    left: 80px;
+    top: 60px;
+}
+section.contacto form input,
+section.contacto form textarea,
+section.contacto form button{
+    border: none;
+    color: #8a8a8a;
+    display: block;
+    font-family: Montserrat;
+    font-size: 16px;
+}
+section.contacto form h2 {
+    font-size: 48px;
+    font-weight: 500;
+}
+section.contacto form input {
+    border: none;
+    border-radius: 40px;
+    height: 42px;
+    outline: none;
+    margin-bottom: 20px;
+    text-indent: 10px;
+    width: 500px;
+}
+section.contacto form textarea {
+    border-radius: 20px;
+    outline: none;
+    margin-bottom: 20px;
+    text-indent: 10px;
+    width: 500px;
+}
+
+section.contacto form button {
+    background-color: #932523;
+    border: none;
+    border-radius: 40px;
+    color: #fff;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 20px 50px;
+    transition: transform 0.2s ease-in;
+}
+section.contacto form button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+/* - - - - - - - - - - - - - - - - - - - - - */
+/* footer */
+/* - - - - - - - - - - - - - - - - - - - - - */
+footer p {
+    text-align: center;
+}
