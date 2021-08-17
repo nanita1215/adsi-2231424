@@ -129,6 +129,53 @@
             cursor: pointer;
             transform: scale(1.1);
         }
+        figure.conditional img#vgender {
+            position: absolute;
+            top: 42px;
+            left: 160px;
+        }
+        figure.conditional.interface:last-child h4 {
+            text-align: center;
+            top: 188px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        figure.conditional h4.pink {
+            color: #de81ce;
+        }
+        figure.conditional h4.blue {
+            color: #43a5f1;
+        }
+        figure.conditional div.message {
+            
+            background-repeat: no-repeat;
+            background-position: center 100px;
+            border-radius: 20px;
+            height: 200px;
+            left: 20px;
+            position: absolute;
+            top: 290px;
+            width: 440px;
+        }
+        figure.conditional div.message.red {
+            background-color: #d77171;
+            background-image: url(imgs/conditionals/i-war.svg);
+        }
+        figure.conditional div.message.green {
+            background-color: #65aa74;
+            background-image: url(imgs/conditionals/i-peace.svg);
+        }
+        main section figure.conditional.interface h3 {
+            background-color: transparent;
+            color: #fff;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 34px;
+            line-height: 41px;
+            text-align: center;
+            letter-spacing: -0.04em;
+        }
 
     </style>
 </head>
@@ -138,23 +185,46 @@
             <h1> <span><a href="index.html">&larr;</a></span> Challenge Conditionals</h1>
         </header>
         <section>
-            <figure class="conditional">
+            <figure class="conditional interface">
                 <h2>Please fill in the true information</h2>
-                <h4 class="lgender">Choose your gender:</h4>
+                <h4 class="lgender">Choose your Gender:</h4>
                 <input type="checkbox" id="c-male">
                 <input type="checkbox" id="c-female">
                 <h4 class="lfullname">Fullname:</h4>
                 <input type="text" id="fullname">
                 <h4 class="lbirthdate">Birthdate:</h4>
-                <input type="date" id="birthdate">
-                <button id="btv">Verify</button>
+                <input type="date" id="birthdate" placeholder="mm/dd/yyyy">
+                <button id="btnv">Verify</button>
+            </figure>
+            <figure class="conditional interface">
+                <img id="vgender" src="">
+                <h4 class="" id="vfullname"></h4>
+                <div class="message">
+                    <h3 id="vmessage"></h3>
+                </div>
+                <button id="btnb">Back</button>
             </figure>
         </section>
     </main>
 
     <script>
         // Variables
-        const circles = document.querySelectorAll('input[type=checkbox]');
+        const circles    = document.querySelectorAll('input[type=checkbox]');
+        const btnv       = document.getElementById('btnv'); 
+        const btnb       = document.getElementById('btnb'); 
+        const interfaces = document.getElementsByClassName('interface');
+        var   gender     = null;
+        var   fullname   = document.getElementById('fullname'); 
+        var   birthdate  = document.getElementById('birthdate'); 
+        var   age        = null;
+        var   vgender    = document.getElementById('vgender'); 
+        var   vfullname  = document.getElementById('vfullname'); 
+        var   message    = document.querySelector('.message');
+        var   vmessage   = document.getElementById('vmessage'); 
+
+        // Actions
+        interfaces[1].style.display = "none";
+
         // Events
         for (let i = 0; i < circles.length; i++) {
             circles[i].onclick = function() {
@@ -162,6 +232,68 @@
                     circles[0].checked = false;
                     circles[1].checked = false;
                     this.checked = true;
+                }
+            }
+        }
+        btnv.onclick = function() {
+            // Check Gender
+            if ((circles[0].checked || 
+                circles[1].checked) &&
+                fullname.value.length > 0 &&
+                birthdate.value.length > 0) {
+                if (circles[0].checked) {
+                    gender = 'Male';
+                } else {
+                    gender = 'Female';
+                }
+                age = calculateAge(new Date(birthdate.value.substring(5,7) + "/" + birthdate.value.substring(8,10) + "/" + birthdate.value.substring(0,4)));
+                interfaces[0].style.display = "none";
+                interfaces[1].style.display = "block";
+                takeDecision();
+            } else {
+                alert("Please fill in the following fields: \n-Gender\n-Fullname\n-Birthdate");
+            }  
+        }
+        btnb.onclick = function() {
+            interfaces[0].style.display = "block";
+            interfaces[1].style.display = "none";
+            circles[0].checked = false;
+            circles[1].checked = false;
+            fullname.value  = "";
+            birthdate.value = "";
+        }
+        // Functions
+        function calculateAge(birthday) {
+            var ageDifMs = Date.now() - birthday.getTime();
+            var ageDate = new Date(ageDifMs);
+            return Math.abs(ageDate.getUTCFullYear() - 1970);
+        }
+        function takeDecision() {
+            if (gender == 'Female') {
+                vgender.setAttribute('src', 'imgs/conditionals/v-girl.svg');
+                vfullname.classList.remove('blue');
+                vfullname.classList.add('pink');
+                vfullname.innerText = fullname.value;
+                message.classList.remove('red');
+                message.classList.add('green');
+                vmessage.innerText = 'You will not go to war!';
+            } else {
+                if (age >= 18) {
+                    vgender.setAttribute('src', 'imgs/conditionals/v-boy.svg');
+                    vfullname.classList.remove('pink');
+                    vfullname.classList.add('blue');
+                    vfullname.innerText = fullname.value;
+                    message.classList.remove('green');
+                    message.classList.add('red');
+                    vmessage.innerText = 'You must go to war!';
+                } else {
+                    vgender.setAttribute('src', 'imgs/conditionals/v-boy.svg');
+                    vfullname.classList.remove('pink');
+                    vfullname.classList.add('blue');
+                    vfullname.innerText = fullname.value;
+                    message.classList.remove('red');
+                    message.classList.add('green');
+                    vmessage.innerText = 'You will not go to war!';
                 }
             }
         }
