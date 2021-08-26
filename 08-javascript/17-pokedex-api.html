@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex API</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        figure.pokedex {
+            background: #2B3151;
+            border-radius: 40px;
+            height: 720px;
+            left: 7px;
+            position: relative;
+            margin: 40px auto;
+            top: 8px;
+            width: 400px;
+        }
+        figure.pokedex.stage01 {
+            
+        }
+        figure.pokedex h4 {
+            color: #d7ddef;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+            height: 22px;
+            position: absolute;
+            left: 144px;
+            top: 44px;
+            width: 138px;
+        }
+        figure.pokedex h1 {
+            color: #f9ba17;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 36px;
+            height: 44px;
+            left: 74px;
+            position: absolute;
+            top: 68px;
+            width: 260px;
+        }
+        figure.pokedex h1 span {
+            color: #d7ddef;
+            font-weight: 400;
+        }
+        figure.pokedex img.main {
+            position: absolute;
+            left: 4px;
+            top: 158px;
+        }
+        figure.pokedex button.btn-enter {
+            background: url(imgs/pokedex/btn-enter.svg) no-repeat center;
+            border: none;
+            height: 61px;
+            left: 20px;
+            position: absolute;
+            top: 622px;
+            text-indent: -9999px;
+            transition: transform 0.2s ease-in;
+            width: 360px;
+        }
+        figure.pokedex button.btn-enter:hover {
+            cursor: pointer;
+            transform: scale(1.03);
+        }
+        figure.pokedex button.btn-back {
+            border: none;
+            left: 24px;
+            top: 48px;
+            height: 16px;
+            position: absolute;
+            text-indent: -9999px;
+            transition: transform 0.2s ease-in;
+            width: 18px;
+        }
+        figure.pokedex button.btn-back:hover {
+            cursor: pointer;
+            transform: translateX(-4px);
+        }
+        figure.pokedex button.btn-white {
+            background: url(imgs/pokedex/btn-back-white.svg) no-repeat center;
+        }
+        figure.pokedex section#pokemons-container {
+            display: flex;
+            height: 448px;
+            justify-content: center;
+            left: 12px;
+            flex-wrap: wrap;
+            margin: 0px auto;
+            overflow-y: scroll;
+            position: absolute;
+            top: 185px;
+            padding: 0;
+            width: 374px;
+        }
+        figure.pokedex section#pokemons-container div.card {
+            border-radius: 20px;
+            height: 118px;
+            margin: 4px;
+            position: relative;
+            width: 178px;
+        }
+        figure.pokedex section#pokemons-container div.card h2 {
+            background-color: transparent;
+            border-radius: 0;
+            color: #2b3151;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 24px;
+            opacity: 0.25;
+            position: absolute;
+            padding: 0;
+            right: 10px;
+            top: -10px;
+            z-index: 2;
+        }
+        figure.pokedex section#pokemons-container div.card h3 {
+            background-color: transparent;
+            border-radius: 0;
+            color: #fff;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 22px;
+            line-height: 24px;
+            position: absolute;
+            top: -6px;
+            z-index: 2;
+        }
+        figure.pokedex section#pokemons-container div.card ul {
+            list-style: none;
+            padding: 0;
+            position: absolute;
+            top: 30px;
+            z-index: 2;
+        }
+        figure.pokedex section#pokemons-container div.card ul li {
+            background-color: #ffffff44;
+            border-radius: 40px;
+            color: #fff;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            margin: 4px;
+            text-align: center;
+            padding: 4px;
+            width: 80px;
+        }
+        figure.pokedex section#pokemons-container div.card figure {
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            z-index: 2;
+        }
+        figure.pokedex section#pokemons-container div.card figure img {
+            width: 100px;
+        }
+
+        /* Colors Type */
+        figure.pokedex section#pokemons-container div.card.grass {
+            background-color: #8BC660;
+        }
+        figure.pokedex section#pokemons-container div.card.water {
+            background-color: #708FE9;
+        }
+        figure.pokedex section#pokemons-container div.card.fire {
+            background-color: #E18644;
+        }
+        figure.pokedex section#pokemons-container div.card.normal {
+            background-color: #A8A87D;
+        }
+        figure.pokedex section#pokemons-container div.card.fighting {
+            background-color: #B13D31;
+        }
+
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <h1> <span><a href="index.html">&larr;</a></span> Pokedex API</h1>
+        </header>
+        <section>
+            <figure class="pokedex stage01">
+                <h4>Welcome To</h4>
+                <h1>POKEDEX <span>API</span></h1>
+                <img class="main" src="imgs/pokedex/main.png">
+                <button class="btn-enter">ENTER</button>
+            </figure>
+            <figure class="pokedex stage02">
+                <button class="btn-back btn-white">Back</button>
+                <h1>POKEDEX <span>API</span></h1>
+                <section id="pokemons-container">
+   
+                </section>
+            </figure>
+            <figure class="pokedex stage03">
+                <button class="btn-back btn-dark">Back</button>
+            </figure>
+        </section>
+    </main>
+
+    <script>
+        function fetchPokemon() {
+            fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
+            .then(response => response.json())
+            .then(function(allpokemon) {
+                allpokemon.results.forEach(function(pokemon) {
+                    fetchPokemonData(pokemon); 
+                });
+            });
+        }
+
+        function fetchPokemonData(pokemon) {
+            let url = pokemon.url;
+                fetch(url).then(response => response.json())
+                .then(function(pokeData) {
+                    //console.log(pokeData)
+                    renderPokemon(pokeData);
+                });
+        }
+
+        function renderPokemon(pokeData) {
+            let allPokemonContainer = document.getElementById('pokemons-container');
+            let pokeContainer       = document.createElement("div");
+            let pokeNumber          = document.createElement('h2');
+            let pokeName            = document.createElement('h3');
+            let pokeTypes           = document.createElement('ul');
+            let pokeImg             = document.createElement('figure');
+
+            pokeName.innerText      = pokeData.name;
+            pokeNumber.innerText    = '#' + pokeData.id;
+            
+            createTypes(pokeData.types, pokeTypes);
+            createPokeImage(pokeData.id, pokeImg);
+
+            let color = colorType(pokeData.types);
+            pokeContainer.classList.add('card');
+            pokeContainer.classList.add(color);
+
+            pokeContainer.append(pokeNumber, pokeName, pokeTypes, pokeImg);   
+            allPokemonContainer.appendChild(pokeContainer);       
+        }
+
+        function createTypes(types, ul) {
+            types.forEach(function(type) {
+                let typeLi = document.createElement('li');
+                typeLi.innerText = type['type']['name'];
+                ul.append(typeLi);
+            })
+        }
+
+        function colorType(types) {
+            let color = null;
+            let cont  = 0;
+            types.forEach(function(type) {
+                if (cont == 0) {
+                    color = type['type']['name'];
+                }
+                cont++;
+            });
+            return color;
+        }
+
+        function createPokeImage(pokeID, img){
+            let pokeImage  = document.createElement('img');
+
+            if (pokeID < 10) {
+                pokeImage.srcset = 'https://www.serebii.net/pokemongo/pokemon/00'+pokeID+'.png';
+            }
+            if (pokeID >= 10 && pokeID < 100) {
+                pokeImage.srcset = 'https://www.serebii.net/pokemongo/pokemon/0'+pokeID+'.png';
+            }
+            if (pokeID >= 100) {
+                pokeImage.srcset = 'https://www.serebii.net/pokemongo/pokemon/'+pokeID+'.png';
+            }
+
+            img.append(pokeImage);
+        }
+
+        fetchPokemon();
+    </script>
+    
+</body>
+</html>
