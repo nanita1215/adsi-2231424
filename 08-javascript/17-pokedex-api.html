@@ -24,9 +24,6 @@
             top: 8px;
             width: 400px;
         }
-        figure.pokedex.stage01 {
-            
-        }
         figure.pokedex h4 {
             color: #d7ddef;
             font-family: Montserrat;
@@ -59,6 +56,10 @@
             position: absolute;
             left: 4px;
             top: 158px;
+        }
+        figure.pokedex button.btn-enter:disabled {
+            cursor: not-allowed !important;
+            filter: grayscale(1);
         }
         figure.pokedex button.btn-enter {
             background: url(imgs/pokedex/btn-enter.svg) no-repeat center;
@@ -182,7 +183,6 @@
         figure.pokedex section#pokemons-container div.card figure img {
             width: 90px;
         }
-
         /* Colors Type */
         figure.pokedex section#pokemons-container div.card.grass,
         figure.pokedex.stage03.grass {
@@ -333,7 +333,7 @@
         figure.pokedex.stage03 table {
             position: absolute;
             left: 20px;
-            top: 460px;
+            top: 480px;
             width: 360px;
         
         }
@@ -385,7 +385,7 @@
                 <h4>Welcome To</h4>
                 <h1>POKEDEX <span>API</span></h1>
                 <img class="main" src="imgs/pokedex/main.png">
-                <button class="btn-enter">ENTER</button>
+                <button class="btn-enter" disabled>ENTER</button>
             </figure>
             <figure class="pokedex stage02 animate__animated hide">
                 <button class="btn-back btn-white">Back</button>
@@ -404,38 +404,33 @@
                 <table>
                     <tr>
                         <th>HP</th>
-                        <td>45</td>
-                        <td><progress max="100" value="45"></progress></td>
+                        <td class="valhp"></td>
+                        <td><progress max="100" class="prohp"></progress></td>
                     </tr>
                     <tr>
                         <th>Attack</th>
-                        <td>60</td>
-                        <td><progress max="100" value="60"></progress></td>
+                        <td class="valatt"></td>
+                        <td><progress max="100" class="proatt"></progress></td>
                     </tr>
                     <tr>
                         <th>Defense</th>
-                        <td>48</td>
-                        <td><progress max="100" value="48"></progress></td>
+                        <td class="valdef"></td>
+                        <td><progress max="100" class="prodef"></progress></td>
                     </tr>
                     <tr>
                         <th>Sp. Atk</th>
-                        <td>65</td>
-                        <td><progress max="100" value="65"></progress></td>
+                        <td class="valsat"></td>
+                        <td><progress max="100" class="prosat"></progress></td>
                     </tr>
                     <tr>
                         <th>Sp. Def</th>
-                        <td>65</td>
-                        <td><progress max="100" value="65"></progress></td>
+                        <td class="valsde"></td>
+                        <td><progress max="100" class="prosde"></progress></td>
                     </tr>
                     <tr>
                         <th>Speed</th>
-                        <td>45</td>
-                        <td><progress max="100" value="45"></progress></td>
-                    </tr>
-                    <tr>
-                        <th>Total</th>
-                        <td>317</td>
-                        <td><progress max="500" value="317"></progress></td>
+                        <td class="valspe"></td>
+                        <td><progress max="100" class="prospe"></progress></td>
                     </tr>
                 </table>
             </figure>
@@ -460,13 +455,11 @@
                 renderAllPokemon(pokemon); 
             }
         }
-
         async function onePokemon(p) {
             const res     = await fetch('https://pokeapi.co/api/v2/pokemon/'+p);
             const pokemon = await res.json();
             renderPokemon(pokemon); 
         }
-
         function renderAllPokemon(pokeData) {
             let allPokemonContainer = document.getElementById('pokemons-container');
             let pokeContainer       = document.createElement("div");
@@ -498,7 +491,6 @@
             pokeContainer.append(pokeNumber, pokeName, pokeTypes, pokeImg);   
             allPokemonContainer.appendChild(pokeContainer);       
         }
-
         function renderPokemon(pokeData) {
 
             let npoke        = null;
@@ -507,6 +499,19 @@
             let numbPokemon  = document.querySelector('figure.stage03 h3');
             let typesPokemon = document.querySelector('figure.stage03 ul');
             let imagePokemon = document.querySelector('figure.stage03 figure');
+
+            let valhp        = document.querySelector('td.valhp');
+            let prohp        = document.querySelector('progress.prohp');
+            let valatt       = document.querySelector('td.valatt');
+            let proatt       = document.querySelector('progress.proatt');
+            let valdef       = document.querySelector('td.valdef');
+            let prodef       = document.querySelector('progress.prodef');
+            let valsat       = document.querySelector('td.valsat');
+            let prosat       = document.querySelector('progress.prosat');
+            let valsde       = document.querySelector('td.valsde');
+            let prosde       = document.querySelector('progress.prosde');
+            let valspe       = document.querySelector('td.valspe');
+            let prospe       = document.querySelector('progress.prospe');
 
             if (pokeData.id < 10) {
                 npoke = '00' + pokeData.id;  
@@ -521,6 +526,18 @@
             namePokemon.innerText = pokeData.name
             numbPokemon.innerText = '#' + npoke;
 
+            valhp.innerText  = pokeData.stats[0].base_stat;
+            prohp.value      = pokeData.stats[0].base_stat;
+            valatt.innerText = pokeData.stats[1].base_stat;
+            proatt.value     = pokeData.stats[1].base_stat;
+            valdef.innerText = pokeData.stats[2].base_stat;
+            prodef.value     = pokeData.stats[2].base_stat;
+            valsat.innerText = pokeData.stats[3].base_stat;
+            prosat.value     = pokeData.stats[3].base_stat;
+            valsde.innerText = pokeData.stats[4].base_stat;
+            prosde.value     = pokeData.stats[4].base_stat;
+            valspe.innerText = pokeData.stats[5].base_stat;
+            prospe.value     = pokeData.stats[5].base_stat;
 
             let color = colorType(pokeData.types);
             stage03.classList.remove('grass', 'water', 'fire', 'normal', 'fighting', 'flying', 'poison', 'electric', 'ground', 'psychic', 'rock', 'ice', 'bug', 'ghost', 'dragon', 'fairy');
@@ -532,7 +549,6 @@
             imagePokemon.innerHTML = "";
             createPokeBigImage(pokeData.id, imagePokemon);    
         }
-
         function createTypes(types, ul) {
             types.forEach(function(type) {
                 let typeLi = document.createElement('li');
@@ -540,7 +556,6 @@
                 ul.append(typeLi);
             })
         }
-
         function colorType(types) {
             let color = null;
             let cont  = 0;
@@ -552,7 +567,6 @@
             });
             return color;
         }
-
         function createPokeImage(pokeID, img){
             let pokeImage  = document.createElement('img');
             let npoke = null;
@@ -570,7 +584,6 @@
 
             img.append(pokeImage);
         }
-
         function createPokeBigImage(pokeID, img){
             let pokeImage  = document.createElement('img');
             let npoke = null;
@@ -588,7 +601,6 @@
 
             img.append(pokeImage);
         }
-
         allPokemons();
 
         // Events
@@ -610,8 +622,6 @@
             stage02.classList.remove('hide');
             stage02.classList.add('animate__zoomInDown');
         }
-
-
         setTimeout(function() {
             const cards = document.getElementsByClassName('card');
             for (let i = 0; i < cards.length; i++) {
@@ -623,9 +633,11 @@
                     stage03.classList.add('animate__zoomInDown');
                 }
             }
-        }, 2000);
+            setTimeout(function() {
+                btnEnter.removeAttribute('disabled');
+            }, 1000);
+        }, 2500);
         
     </script>
-    
 </body>
 </html>
