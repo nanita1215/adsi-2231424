@@ -34,6 +34,9 @@
             top: 176px;
             width: 76px;
         }
+        div.ball-oto figure.ball.hide {
+            visibility: hidden;
+        }
         div.ball-oto figure.ball.ball1 {
             left: 90px;
         }
@@ -68,6 +71,11 @@
             cursor: pointer;
             transform: scale(1.1);
         }
+        div.ball-oto button.btn-play[disabled] {
+            cursor: not-allowed;
+            filter: grayscale(1);
+            opacity: 0.5;
+        }
     </style>
 </head>
 <body>
@@ -77,12 +85,12 @@
         </header>
         <section>
             <div class="ball-oto">
-                <figure class="ball ball1 animate__animated">7</figure>
-                <figure class="ball ball2 animate__animated">17</figure>
-                <figure class="ball ball3 animate__animated">27</figure>
-                <figure class="ball ball4 animate__animated">8</figure>
-                <figure class="ball ball5 animate__animated">43</figure>
-                <figure class="ball ball6 animate__animated">16</figure> 
+                <figure class="ball ball1 hide animate__animated"></figure>
+                <figure class="ball ball2 hide animate__animated"></figure>
+                <figure class="ball ball3 hide animate__animated"></figure>
+                <figure class="ball ball4 hide animate__animated"></figure>
+                <figure class="ball ball5 hide animate__animated"></figure>
+                <figure class="ball ball6 hide animate__animated"></figure> 
                 <button class="btn-play"></button>
             </div>
         </section>
@@ -92,21 +100,43 @@
         // Variables
         const btnPlay = document.querySelector('button.btn-play');
         const balls   = document.querySelectorAll('figure.ball');
+        const arrballs = new Array;
+		const arrsball = new Array;
 
         // Events
         btnPlay.onclick = function() {
-            for (let i=0; i<balls.length; i++) {
-                balls[i].classList.remove('animate__bounceInDown');              
+            this.setAttribute('disabled', true);
+            for (let i = 0; i < 43; i++) {
+			    arrballs[i] = i+1;
             }
-            setTimeout(function() {
-                for (let i=0; i<balls.length; i++) {
-                    balls[i].classList.add('animate__bounceInDown');                
+            for (let i = 0; i < 16; i++) {
+                arrsball[i] = i+1;
+            }
+            //console.log(arrballs);
+            for (let i = 0; i < balls.length; i++) {
+                balls[i].classList.add('hide');
+                balls[i].classList.remove('animate__bounceInDown'); 
+                if(i < 5) {
+                    let rn = Math.ceil(Math.random() * arrballs.length);
+                    balls[i].innerText = arrballs[rn-1];
+                    arrballs.splice(rn-1,1);
+                    //console.log(arrballs);
+                } else {
+                    balls[i].innerText = Math.ceil(Math.random() * 16);
+                }             
+            }
+            let i = 0;
+            var sinter = setInterval(function() {
+                if(i < 6) {
+                    balls[i].classList.remove('hide'); 
+                    balls[i].classList.add('animate__bounceInDown'); 
+                } else {
+                    btnPlay.removeAttribute('disabled');
+                    clearInterval(sinter);
                 }
-            }, 500);
-            
+                i++;
+            }, 250);   
         }
-
     </script>
-    
 </body>
 </html>
