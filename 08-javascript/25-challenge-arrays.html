@@ -5,7 +5,181 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Challenge Arrays</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        figure.vectors {
+            background: transparent url(imgs/vectors/bg.png) no-repeat center;
+            height: 736px;
+            margin: 0px auto;
+            padding: 0;
+            position: relative;
+            width: 414px;
+        }
+        figure.vectors h2 {
+            background-color: transparent;
+            color: #222850;
+            font-family: Montserrat;
+            font-weight: 600;
+            font-size: 18px;
+            left: 14px;
+            position: absolute;
+        }
+        figure.vectors h2:nth-child(1) {
+            top: 194px;
+        }
+        figure.vectors h2:nth-child(3) {
+            top: 414px;
+        }
+        figure.vectors ul.pokemons {
+            height: 160px;
+            list-style: none;
+            left: 40px;
+            position: absolute;
+            padding: 0;
+            top: 250px;
+            width: 334px;
+        }
+        figure.vectors ul.pokemons li.pk {
+            display: inline-block;
+            height: 76px;
+            filter: grayscale(1);
+            transition: all 0.2s ease-in;
+            width: 78px;
+        }
+        figure.vectors ul.pokemons li.pk:hover {
+            cursor: pointer;
+            transform: scale(1.2);
+            filter: grayscale(0);
+        }
+        figure.vectors ul.pokemons li.pk.pk1 {
+            background: transparent url(imgs/vectors/pk1.png) no-repeat center;
+        }
+        figure.vectors ul.pokemons li.pk.pk2 {
+            background: transparent url(imgs/vectors/pk2.png) no-repeat center;
+        }
+        figure.vectors ul.pokemons li.pk.pk3 {
+            background: transparent url(imgs/vectors/pk3.png) no-repeat center;
+        }
+        figure.vectors ul.pokemons li.pk.pk4 {
+            background: transparent url(imgs/vectors/pk4.png) no-repeat center;
+        }
+        figure.vectors ul.pokemons li.pk.pk5 {
+            background: transparent url(imgs/vectors/pk5.png) no-repeat center;
+        }
+        figure.vectors ul.pokemons li.pk.pk6 {
+            background: transparent url(imgs/vectors/pk6.png) no-repeat center;
+        }
+        figure.vectors ul.pokemons li.pk.pk7 {
+            background: transparent url(imgs/vectors/pk7.png) no-repeat center;
+        }
+        figure.vectors ul.pokemons li.pk.pk8 {
+            background: transparent url(imgs/vectors/pk8.png) no-repeat center;
+        }
+        figure.vectors ul.pokemons li.pk.selected {
+            transform: scale(1.2);
+            filter: grayscale(0);
+        }
+        figure.vectors div.switch {
+            border: 1px solid #222850;
+            box-sizing: border-box;
+            border-radius: 40px;
+            cursor: pointer;
+            height: 40px;
+            left: 16px;
+            position: absolute;
+            top: 490px;
+            width: 100px;
+        }
+        figure.vectors div.switch span {
+            color: #222850;
+            font-family: Montserrat;
+            font-weight: 400;
+            font-size: 14px;
+        }
+        figure.vectors div.switch span.right {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        figure.vectors div.switch span.left {
+            position: absolute;
+            top: 10px;
+            left: 6px;
+        }
+        figure.vectors div.switch span.hide {
+            display: none;
+        }
+        figure.vectors div.switch.action {
+            top: 550px;
+        }
+        figure.vectors div.switch div.circle {
+            background: #222850;
+            border-radius: 15px;
+            height: 30px;
+            left: 21px;
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            transition: left 0.2s ease-in;
+            width: 30px;
+        }
+        figure.vectors div.switch.checked div.circle {
+            left: 64px;
+        }
+        figure.vectors button {
+            border: none;
+            bottom: 4px;
+            position: absolute;
+            height: 96px;
+            left: 160px;
+            transition: all 0.2s ease-in;
+            width: 96px;
+        }
+        figure.vectors button:hover {
+            cursor: pointer;
+            transform: scale(1.2);
+        }
+        figure.vectors button#btn-add {
+            background: transparent url(imgs/vectors/btn-add.png) no-repeat center;
+        }
+        figure.vectors button#btn-remove {
+            background: transparent url(imgs/vectors/btn-remove.png) no-repeat center;
+        }
+        figure.vectors input {
+            border: 1px solid #222850;
+            border-radius: 40px;
+            color: #222850;
+            font-family: Montserrat;
+            font-weight: 400;
+            font-size: 14px;
+            height: 34px;
+            left: 15px;
+            outline: none;
+            position: absolute;
+            text-align: center;
+            top: 608px;
+            width: 97px;
+        }
+        ul.final-vector {
+            list-style: none;
+            margin: 40px auto;
+            padding: 0;
+            position: relative;
+            width: 340px;
+        }
+        ul.final-vector li {
+            border: 1px solid red;
+            display: inline-block;
+            height: 76px;
+            filter: grayscale(1);
+            transition: all 0.2s ease-in;
+            width: 78px;
+        }
+    </style>
 </head>
 <body>
     <main>
@@ -13,11 +187,129 @@
             <h1> <span><a href="index.html">&larr;</a></span> Challenge Arrays</h1>
         </header>
         <section>
-
+            <figure class="vectors">
+                <h2>1. Select Pokemon:</h2>
+                <ul class="pokemons">
+                    <li class="pk pk1 animate__animated"></li>
+                    <li class="pk pk2 animate__animated"></li>
+                    <li class="pk pk3 animate__animated"></li>
+                    <li class="pk pk4 animate__animated"></li>
+                    <li class="pk pk5 animate__animated"></li>
+                    <li class="pk pk6 animate__animated"></li>
+                    <li class="pk pk7 animate__animated"></li>
+                    <li class="pk pk8 animate__animated"></li>
+                </ul>
+                <h2>2. Select Options:</h2>
+                <div class="switch position">
+                    <span class="right">First</span>
+                    <span class="left hide">Last</span>
+                    <div class="circle"></div>
+                </div>
+                <div class="switch action">
+                    <span class="right">Add</span>
+                    <span class="left hide">Remove</span>
+                    <div class="circle"></div>
+                </div>
+                <input class="num-position" type="number" min="0" max="99">
+                <button id="btn-add"></button>
+            </figure>
+            <ul class="final-vector">
+            </ul>
         </section>
     </main>
 
     <script>
+        // Variables & Constants
+        const pokemons    = document.querySelectorAll('li.pk');
+        const switches    = document.querySelectorAll('div.switch');
+        const txtLeft     = document.querySelectorAll('span.left');
+        const txtRight    = document.querySelectorAll('span.right');
+        const btn         = document.querySelector('button');
+        var   numPos      = document.querySelector('input.num-position');
+        var   finalVector = document.querySelector('ul.final-vector');
+
+        var   finalArray  = [];
+
+        // Object
+        var vector = {
+            // Attributes
+            pkSelected: null,
+            posCheked: 'First',
+            actCheked: 'Add',
+            // Methods
+            clicksSwitches: function() {
+                for (let i = 0; i < switches.length; i++) {
+                    switches[i].onclick = function() {
+                        this.classList.toggle('checked');
+                        txtLeft[i].classList.toggle('hide');
+                        txtRight[i].classList.toggle('hide');
+                        if (i == 0) {
+                            if (txtRight[0].classList.contains('hide')) {
+                                vector.posCheked = 'Last';
+                            } else {
+                                vector.posCheked = 'First';
+                            }
+                        } else {
+                            if (txtRight[1].classList.contains('hide')) {
+                                vector.actCheked = 'Remove';
+                                btn.setAttribute('id', 'btn-remove');
+                            } else {
+                                vector.actCheked = 'Add';
+                                btn.setAttribute('id', 'btn-add');
+                            }
+                        }
+                    };
+                }
+            },
+            clicksPokemons: function() {
+                for (let i = 0; i < pokemons.length; i++) {
+                    pokemons[i].onclick = function() {
+                        vector.removeSelected();
+                        this.classList.add('selected');
+                        this.classList.add('animate__heartBeat');
+                        vector.pkSelected = (i+1);
+                    };
+                }
+            },
+            removeSelected: function() {
+                for (let i = 0; i < pokemons.length; i++) {
+                    pokemons[i].classList.remove('selected');
+                    pokemons[i].classList.remove('animate__heartBeat');
+                }
+            },
+            renderVector: function() {
+                if(this.pkSelected == null) {
+                    alert('Please select a Pokemon!');
+                } else {
+                    // Logic
+                    if (vector.posCheked == 'First') {
+                        if (vector.actCheked == 'Add') {
+                            finalArray.unshift(vector.pkSelected);
+                        } else {
+                            finalArray.shift();
+                        }
+                    } else {
+                        if (vector.actCheked == 'Add') {
+                            finalArray.push(vector.pkSelected);
+                        } else {
+                            finalArray.pop();
+                        }
+                    }
+                    //
+                    finalVector.innerHTML = "";
+                    for (let i = 0; i < finalArray.length; i++) {
+                        finalVector.innerHTML += "<li>" + finalArray[i] + "</li>"; 
+                    }
+                }
+            }
+        }
+        vector.clicksPokemons();
+        vector.clicksSwitches();
+
+        // Action
+        btn.onclick = function() {
+            vector.renderVector();
+        }
 
     </script>
     
