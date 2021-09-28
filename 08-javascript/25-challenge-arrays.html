@@ -55,28 +55,36 @@
             transform: scale(1.2);
             filter: grayscale(0);
         }
-        figure.vectors ul.pokemons li.pk.pk1 {
+        figure.vectors ul.pokemons li.pk.pk1,
+        ul.show-vector li.pk1  {
             background: transparent url(imgs/vectors/pk1.png) no-repeat center;
         }
-        figure.vectors ul.pokemons li.pk.pk2 {
+        figure.vectors ul.pokemons li.pk.pk2,
+        ul.show-vector li.pk2 {
             background: transparent url(imgs/vectors/pk2.png) no-repeat center;
         }
-        figure.vectors ul.pokemons li.pk.pk3 {
+        figure.vectors ul.pokemons li.pk.pk3,
+        ul.show-vector li.pk3 {
             background: transparent url(imgs/vectors/pk3.png) no-repeat center;
         }
-        figure.vectors ul.pokemons li.pk.pk4 {
+        figure.vectors ul.pokemons li.pk.pk4,
+        ul.show-vector li.pk4 {
             background: transparent url(imgs/vectors/pk4.png) no-repeat center;
         }
-        figure.vectors ul.pokemons li.pk.pk5 {
+        figure.vectors ul.pokemons li.pk.pk5,
+        ul.show-vector li.pk5 {
             background: transparent url(imgs/vectors/pk5.png) no-repeat center;
         }
-        figure.vectors ul.pokemons li.pk.pk6 {
+        figure.vectors ul.pokemons li.pk.pk6,
+        ul.show-vector li.pk6 {
             background: transparent url(imgs/vectors/pk6.png) no-repeat center;
         }
-        figure.vectors ul.pokemons li.pk.pk7 {
+        figure.vectors ul.pokemons li.pk.pk7,
+        ul.show-vector li.pk7 {
             background: transparent url(imgs/vectors/pk7.png) no-repeat center;
         }
-        figure.vectors ul.pokemons li.pk.pk8 {
+        figure.vectors ul.pokemons li.pk.pk8,
+        ul.show-vector li.pk8 {
             background: transparent url(imgs/vectors/pk8.png) no-repeat center;
         }
         figure.vectors ul.pokemons li.pk.selected {
@@ -164,20 +172,32 @@
             top: 608px;
             width: 97px;
         }
-        ul.final-vector {
+        ul.show-vector {
             list-style: none;
             margin: 40px auto;
             padding: 0;
             position: relative;
-            width: 340px;
+            width: 390px;
         }
-        ul.final-vector li {
-            border: 1px solid red;
+        ul.show-vector li {
             display: inline-block;
             height: 76px;
-            filter: grayscale(1);
             transition: all 0.2s ease-in;
             width: 78px;
+        }
+        ul.show-vector li i {
+            background-color: #222850;
+            border-radius: 16px;
+            color: #fff;
+            font-family: Montserrat;
+            font-weight: 600;
+            font-size: 12px;
+            font-style: normal;
+            display: block;
+            height: 16px;
+            padding: 4px;
+            text-align: center;
+            width: 16px;
         }
     </style>
 </head>
@@ -213,22 +233,21 @@
                 <input class="num-position" type="number" min="0" max="99">
                 <button id="btn-add"></button>
             </figure>
-            <ul class="final-vector">
+            <ul class="show-vector">
             </ul>
         </section>
     </main>
 
     <script>
         // Variables & Constants
-        const pokemons    = document.querySelectorAll('li.pk');
-        const switches    = document.querySelectorAll('div.switch');
-        const txtLeft     = document.querySelectorAll('span.left');
-        const txtRight    = document.querySelectorAll('span.right');
-        const btn         = document.querySelector('button');
-        var   numPos      = document.querySelector('input.num-position');
-        var   finalVector = document.querySelector('ul.final-vector');
-
-        var   finalArray  = [];
+        const pokemons   = document.querySelectorAll('li.pk');
+        const switches   = document.querySelectorAll('div.switch');
+        const txtLeft    = document.querySelectorAll('span.left');
+        const txtRight   = document.querySelectorAll('span.right');
+        const btn        = document.querySelector('button');
+        var   numPos     = document.querySelector('input.num-position');
+        var   showVector = document.querySelector('ul.show-vector');
+        var   pkArray    = [];
 
         // Object
         var vector = {
@@ -282,23 +301,31 @@
                     alert('Please select a Pokemon!');
                 } else {
                     // Logic
-                    if (vector.posCheked == 'First') {
-                        if (vector.actCheked == 'Add') {
-                            finalArray.unshift(vector.pkSelected);
+                    if(numPos.value.length < 1) {
+                        if (vector.posCheked == 'First') {
+                            if (vector.actCheked == 'Add') {
+                                pkArray.unshift('pk' + vector.pkSelected); // Add First
+                            } else {
+                                pkArray.shift(); // Remove First
+                            }
                         } else {
-                            finalArray.shift();
+                            if (vector.actCheked == 'Add') {
+                                pkArray.push('pk' + vector.pkSelected); // Add Last
+                            } else {
+                                pkArray.pop(); // Remove Last
+                            }
                         }
                     } else {
                         if (vector.actCheked == 'Add') {
-                            finalArray.push(vector.pkSelected);
+                            pkArray.splice(numPos.value, 0, 'pk' + vector.pkSelected); // Add Pos
                         } else {
-                            finalArray.pop();
+                            pkArray.splice(numPos.value, 1); // Remove Pos
                         }
                     }
-                    //
-                    finalVector.innerHTML = "";
-                    for (let i = 0; i < finalArray.length; i++) {
-                        finalVector.innerHTML += "<li>" + finalArray[i] + "</li>"; 
+                    //  Render Array
+                    showVector.innerHTML = "";
+                    for (let i = 0; i < pkArray.length; i++) {
+                        showVector.innerHTML += "<li class='animate__animated animate__rubberBand "+ pkArray[i] +"'> <i>" + i + "</i></li>"; 
                     }
                 }
             }
