@@ -6,6 +6,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Challenge Events Time</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        figure.stage {
+            height: 736px;
+            margin: 20px auto;
+            position: relative;
+            width: 414px;
+        }
+        figure.stage.hide {
+            display: none;
+        }
+        figure.stage01 {
+            background: transparent url(imgs/starship/bg-stage1.png) no-repeat center;
+        }
+        figure.stage02 {
+            background: transparent url(imgs/starship/bg-stage2.png) no-repeat center;
+        }
+        figure.stage01 img.logo {
+            left: 81px;
+            position: absolute;
+            top: 143px;
+        }
+        figure.stage01 div.stars01 {
+            border-radius: 60px;
+            overflow: hidden;
+            position: absolute;
+            width: 342px;
+            height: 358px;
+            left: 36px;
+            top: 33px;
+        }
+        figure.stage01 div.stars01 div.parallax {
+            background: transparent url(imgs/starship/stars1.png) repeat-y 0px -716px;
+            height: 716px;
+            animation: 8s animParallax1 linear infinite;
+        }
+        @keyframes animParallax1 {
+            0% { background-position: 0px -716px; }
+            100% { background-position: 0px 0px; }
+        }
+        figure.stage01 button#btnPlay {
+            background: url(imgs/starship/btn.png) no-repeat center;
+            border: none;
+            cursor: pointer;
+            height: 60px;
+            left: 27px;
+            position: absolute;
+            top: 643px;
+            transition: all 0.2s ease-in;
+            width: 360px;
+        }
+        figure.stage01 button#btnPlay:hover {
+            transform: scale(1.05);
+        }
+        figure.stage02 div.info {
+            color: #ffffff;
+            font-family: Poppins;
+            font-weight: 400;
+            font-size: 24px;
+            position: absolute;
+            text-align: center;
+            width: 38px;
+        }
+        figure.stage02 div#points {
+            left: 46px;
+            top: 644px;
+        }
+        figure.stage02 div#time {
+            left: 188px;
+            top: 644px;
+        }
+        figure.stage02 div#lives {
+            left: 328px;
+            top: 644px;
+        }
+        figure.stage02 div.starship {
+            background: url(imgs/starship/starship.svg) no-repeat center;
+            background-size: contain;
+            height: 97px;
+            width: 60px;
+            position: absolute;
+            left: 174px;
+            top: 520px;
+            transition: all 0.1s linear;
+            animation: 0.2s animStarShip ease-in infinite;
+        }
+        @keyframes animStarShip {
+            0%, 100% {
+                top: 520px;
+            }
+            50% {
+                top: 516px;
+            }
+        }
+    </style>
 </head>
 <body>
     <main>
@@ -13,12 +111,91 @@
             <h1> <span><a href="index.html">&larr;</a></span> Challenge Events Time</h1>
         </header>
         <section>
-
+            <figure class="stage stage01 animate__animated animate__zoomIn">
+                <img src="imgs/starship/logo.png" class="logo">
+                <div class="stars01">
+                    <div class="parallax"></div>
+                </div>
+                <button id="btnPlay"></button>
+            </figure>
+            <figure class="stage stage02 hide animate__animated animate__zoomIn">
+                <div class="starship"></div>
+                <div class="info" id="points">0</div>
+                <div class="info" id="time">60</div>
+                <div class="info" id="lives">3</div>
+            </figure>
         </section>
     </main>
 
     <script>
+        // Globally Variables & Constants 
+        const btnPlay  = document.getElementById('btnPlay');
+        const stage01  = document.querySelector('figure.stage01');
+        const stage02  = document.querySelector('figure.stage02');
+        const starShip = document.querySelector('div.starship');
 
+        var points     = document.getElementById('points');
+        var time       = document.getElementById('time');
+        var lives      = document.getElementById('lives');
+
+        // Object
+        const game = {
+            // Attributes
+            gpoints: 0,
+            gtime: 60,
+            glives: 3,
+            gpos: 174,
+            // Methods
+            playStarShip: function() {
+                this.changeStage();  
+                this.countDownTime(); 
+            },
+            changeStage: function() {
+                stage01.classList.add('animate__zoomOut');
+                setTimeout(function() {
+                    stage01.classList.add('hide');
+                    stage02.classList.remove('hide');
+                },500);
+            },
+            countDownTime: function() {
+                let seti = setInterval(function() {
+                    if (game.gtime %10 == 0) {
+                        if (game.gtime != 60) {
+                            game.gpoints += 10;
+                            points.innerText = game.gpoints;
+                        }
+                    }
+                    if (game.gtime < 1) {
+                        ///alert('The Game is Over');
+                        time.innerText = '0';
+                        clearInterval(seti);
+                    } else {
+                        time.innerText = parseInt(game.gtime--);
+                    }
+                }, 1000);
+            }
+        }
+        // Events
+        btnPlay.onclick = function() {
+            game.playStarShip();
+        }
+        document.onkeydown = function(event) {
+            //console.log(event.keyCode);
+            // left (37)
+            if(event.keyCode == 37) {
+                if ( game.gpos > 44) {
+                    game.gpos -= 130;
+                    starShip.style.left = game.gpos + 'px';
+                }
+            }
+            // right (39)
+            if(event.keyCode == 39) {
+                if ( game.gpos < 304) {
+                    game.gpos += 130;
+                    starShip.style.left = game.gpos + 'px';
+                }
+            }
+        }
     </script>
     
 </body>
