@@ -3,6 +3,7 @@
 ---
 ## List
 
+- **00** [Resources](00-resources/)
 - **01** [Emmet](01-emmet/)
 - **02** [HTML4.01](02-html4.01/)
 - **03** [HTML5](03-html5/)
@@ -11,3 +12,5 @@
 - **06** [PUG](06-pug/)
 - **07** [SASS](07-sass/)
 - **08** [JavaScript](08-javascript/)
+- **09** [Figma](09-figma/)
+- **10** [jQuery](10-jQuery/)
