@@ -30,24 +30,25 @@
             left: 81px;
             position: absolute;
             top: 143px;
+            z-index: 9;
         }
-        figure.stage01 div.stars01 {
+        figure.stage01 div.stars__sm {
             border-radius: 60px;
             overflow: hidden;
             position: absolute;
-            width: 342px;
-            height: 358px;
-            left: 36px;
-            top: 33px;
+            width: 344px; 
+            height: 317px; 
+            left: 34px;
+            top: 54px;
         }
-        figure.stage01 div.stars01 div.parallax {
+        figure.stage01 div.stars__sm div.parallax {
             background: transparent url(imgs/starship/stars1.png) repeat-y 0px -716px;
-            height: 716px;
-            animation: 8s animParallax1 linear infinite;
+            height: 634px; 
+            animation: 8s animParallaxSm linear infinite;
         }
-        @keyframes animParallax1 {
-            0% { background-position: 0px -716px; }
-            100% { background-position: 0px 0px; }
+        @keyframes animParallaxSm {
+            0%   { background-position: 0px -634px; }
+            100% { background-position: 0px 0px;    }
         }
         figure.stage01 button#btnPlay {
             background: url(imgs/starship/btn.png) no-repeat center;
@@ -85,8 +86,6 @@
             top: 644px;
         }
         figure.stage02 div.starship {
-            background: url(imgs/starship/starship.svg) no-repeat center;
-            background-size: contain;
             height: 97px;
             width: 60px;
             position: absolute;
@@ -94,6 +93,16 @@
             top: 520px;
             transition: all 0.1s linear;
             animation: 0.2s animStarShip ease-in infinite;
+            z-index: 9;
+        }
+        figure.stage02 div.starship div.structure {
+            background: url(imgs/starship/starship-steps.png) no-repeat;
+            height: 97px;
+            width: 60px;
+            animation: animStepsStarShip 0.1s steps(3) infinite;
+        }
+        @keyframes animStepsStarShip {
+            100% { background-position: -180px; }
         }
         @keyframes animStarShip {
             0%, 100% {
@@ -102,6 +111,51 @@
             50% {
                 top: 516px;
             }
+        }
+        figure.stage02 div.stars__lg {
+            border-radius: 30px;
+            overflow: hidden;
+            position: absolute;
+            width: 373px; 
+            height: 606px; 
+            left: 20px;
+            top: 20px;
+        }
+        figure.stage02 div.stars__lg div.parallax {
+            background: transparent url(imgs/starship/stars2.png) repeat-y 0px -1212px;
+            height: 634px; 
+            animation: 8s animParallaxLg linear infinite;
+        }
+        @keyframes animParallaxLg {
+            0%   { background-position: 0px -1212px; }
+            100% { background-position: 0px 0px;    }
+        }
+        figure.stage02 div.asteroid1 {
+            background: url(imgs/starship/asteroid1.png) no-repeat center;
+            /* left: 40px; */
+        }
+        figure.stage02 div.asteroid2 {
+            background: url(imgs/starship/asteroid2.png) no-repeat center;
+            /* left: 184px; */
+        }
+        figure.stage02 div.asteroid3 {
+            background: url(imgs/starship/asteroid3.png) no-repeat center;
+            /* left: 320px; */
+        }
+        figure.stage02 div.asteroid {
+            background-size: contain;
+            height: 50px;
+            position: absolute;
+            top: 30px;
+            width: 50px;
+            animation: 2s animAsteroid linear infinite;
+            z-index: 9;
+        }
+        @keyframes animAsteroid {
+            0%   { transform: rotate(0deg);   }
+            100% { transform: rotate(360deg); }
+            /* 0% { top: 30px; }
+            100% { top: 630px; } */
         }
     </style>
 </head>
@@ -113,13 +167,20 @@
         <section>
             <figure class="stage stage01 animate__animated animate__zoomIn">
                 <img src="imgs/starship/logo.png" class="logo">
-                <div class="stars01">
+                <div class="stars__sm">
                     <div class="parallax"></div>
                 </div>
                 <button id="btnPlay"></button>
             </figure>
             <figure class="stage stage02 hide animate__animated animate__zoomIn">
-                <div class="starship"></div>
+                <div class="asteroid"></div>
+
+                <div class="starship">
+                    <div class="structure"></div>
+                </div>
+                <div class="stars__lg">
+                    <div class="parallax"></div>
+                </div>
                 <div class="info" id="points">0</div>
                 <div class="info" id="time">60</div>
                 <div class="info" id="lives">3</div>
@@ -133,10 +194,15 @@
         const stage01  = document.querySelector('figure.stage01');
         const stage02  = document.querySelector('figure.stage02');
         const starShip = document.querySelector('div.starship');
+        const asteroid = document.querySelector('div.asteroid');
 
         var points     = document.getElementById('points');
         var time       = document.getElementById('time');
         var lives      = document.getElementById('lives');
+
+        const posAsteroid  = [40, 184, 320];
+        const imgAsteroid  = ['asteroid1', 'asteroid2', 'asteroid3'];
+        const sizeAsteroid = ['contain', '75%', '50%'];
 
         // Object
         const game = {
@@ -149,6 +215,7 @@
             playStarShip: function() {
                 this.changeStage();  
                 this.countDownTime(); 
+                this.randomAsteroids();
             },
             changeStage: function() {
                 stage01.classList.add('animate__zoomOut');
@@ -172,7 +239,37 @@
                     } else {
                         time.innerText = parseInt(game.gtime--);
                     }
-                }, 1000);
+                }, 2000);
+            },
+            moveStarShip: function(event) {
+                //console.log(event.keyCode);
+                // left (37)
+                if(event.keyCode == 37) {
+                    if ( game.gpos > 44) {
+                        game.gpos -= 130;
+                        starShip.style.left = game.gpos + 'px';
+                    }
+                }
+                // right (39)
+                if(event.keyCode == 39) {
+                    if ( game.gpos < 304) {
+                        game.gpos += 130;
+                        starShip.style.left = game.gpos + 'px';
+                    }
+                }
+            },
+            randomAsteroids: function() {
+                let setiRand = setInterval(function() {
+                    let rnd1 = Math.floor(Math.random() * posAsteroid.length );
+                    let rnd2 = Math.floor(Math.random() * imgAsteroid.length );
+                    let rnd3 = Math.floor(Math.random() * sizeAsteroid.length );
+
+                    asteroid.style.left = posAsteroid[rnd1] + 'px';
+                    asteroid.classList.remove('asteroid1', 'asteroid2', 'asteroid3');
+                    asteroid.classList.add(imgAsteroid[rnd2]);
+                    asteroid.style.backgroundSize = sizeAsteroid[rnd3];
+                    //console.log(rnd1 + " - " + rnd2);
+                }, 500);
             }
         }
         // Events
@@ -180,21 +277,7 @@
             game.playStarShip();
         }
         document.onkeydown = function(event) {
-            //console.log(event.keyCode);
-            // left (37)
-            if(event.keyCode == 37) {
-                if ( game.gpos > 44) {
-                    game.gpos -= 130;
-                    starShip.style.left = game.gpos + 'px';
-                }
-            }
-            // right (39)
-            if(event.keyCode == 39) {
-                if ( game.gpos < 304) {
-                    game.gpos += 130;
-                    starShip.style.left = game.gpos + 'px';
-                }
-            }
+            game.moveStarShip(event);
         }
     </script>
     
