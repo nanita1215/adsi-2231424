@@ -187,6 +187,8 @@
             </figure>
         </section>
     </main>
+    <audio id="bgMusic" src="audio/bg-sound.mp3"></audio>
+    <audio id="fxStarShip" src="audio/fx-starship.mp3"></audio>
 
     <script>
         // Globally Variables & Constants 
@@ -195,6 +197,9 @@
         const stage02  = document.querySelector('figure.stage02');
         const starShip = document.querySelector('div.starship');
         const asteroid = document.querySelector('div.asteroid');
+
+        const bgMusic    = document.getElementById('bgMusic');
+        const fxStarShip = document.getElementById('fxStarShip');
 
         var points     = document.getElementById('points');
         var time       = document.getElementById('time');
@@ -216,6 +221,7 @@
                 this.changeStage();  
                 this.countDownTime(); 
                 this.randomAsteroids();
+                this.playMusic();
             },
             changeStage: function() {
                 stage01.classList.add('animate__zoomOut');
@@ -248,6 +254,7 @@
                     if ( game.gpos > 44) {
                         game.gpos -= 130;
                         starShip.style.left = game.gpos + 'px';
+                        this.playFxSound();
                     }
                 }
                 // right (39)
@@ -255,6 +262,7 @@
                     if ( game.gpos < 304) {
                         game.gpos += 130;
                         starShip.style.left = game.gpos + 'px';
+                        this.playFxSound();
                     }
                 }
             },
@@ -270,6 +278,19 @@
                     asteroid.style.backgroundSize = sizeAsteroid[rnd3];
                     //console.log(rnd1 + " - " + rnd2);
                 }, 500);
+            },
+            playMusic: function() {
+                bgMusic.play();
+                bgMusic.loop = true;
+                bgMusic.volume = 0.1;
+            },
+            pauseMusic: function() {
+                bgMusic.pause();
+                bgMusic.currentTime = 0;
+            }, 
+            playFxSound: function() {
+                fxStarShip.play();
+                fxStarShip.currentTime = 0.1;
             }
         }
         // Events
