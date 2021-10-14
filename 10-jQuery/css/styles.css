@@ -60,6 +60,6 @@ main section nav li a:visited {
 }
 
 main section nav li a:hover {
-    color: #1e4168;
+    color: #fff;
     transform: translateX(10px);
 }
