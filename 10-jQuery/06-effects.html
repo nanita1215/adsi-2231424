@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Effects</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        nav {
+            margin: 0px auto;
+            width: 320px;
+        }
+        nav button {
+            background-color: #1e4168;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+            padding: 8px;
+            transition: transform 0.1s ease-out;
+            width: 100px;
+        }
+        nav button:hover {
+            transform: scale(1.06);
+        }
+        nav button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        figure img.mario {
+            display: block;
+            margin: 20px auto;
+            position: relative;
+            width: 320px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <h1> <span><a href="index.html">&larr;</a></span> Effects</h1>
+        </header>
+        <section>
+            <nav>
+                <button class="btnHide hide">Hide</button>
+                <button class="btnShow show">Show</button>
+                <button class="btnToggle">Toggle</button>
+                <button class="btnSlideDown show">Slide Down</button>
+                <button class="btnSlideUp hide">Slide Up</button>
+                <button class="btnSlideToggle">Slide Toogle</button>
+                <button class="btnFadeIn show">Fade In</button>
+                <button class="btnFadeOut hide">Fade Out</button>
+                <button class="btnFadeTo show">Fade To</button>
+                <button class="btnFadeToggle">Fade Toogle</button>
+                <button class="btnAnimate">Animate</button>
+                <button class="btnStop">Stop</button>
+            </nav>
+            <figure>
+                <img class="mario" src="images/marioparty.png">
+            </figure>
+        </section>
+    </main>
+
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Variables
+            $marioIsVisible = true;
+
+            // Events
+            // Hide
+            $('.btnHide').click(function(e) {
+                $('.mario').hide();
+                $marioIsVisible = false;
+                marioVisible($marioIsVisible);
+            });
+            // Show
+            $('.btnShow').click(function(e) {
+                $('.mario').show();
+                $marioIsVisible = true;
+                marioVisible($marioIsVisible);
+            });
+            // Toggle
+            $('.btnToggle').click(function(e) {
+                $('.mario').toggle();
+                if ($('.mario').attr('style')) {
+                    $marioIsVisible = false;
+                } else {
+                    $marioIsVisible = true;
+                }
+                marioVisible($marioIsVisible);
+            });
+            // SlideDown
+            $('.btnSlideDown').click(function(e) {
+                $('.mario').slideDown(2000);
+                $marioIsVisible = true;
+                marioVisible($marioIsVisible);
+            });
+            // SlideUp
+            $('.btnSlideUp').click(function(e) {
+                $('.mario').slideUp(2000);
+                $marioIsVisible = false;
+                marioVisible($marioIsVisible);
+            });
+            // SlideToggle
+            $('.btnSlideToggle').click(function(e) {
+                $('.mario').slideToggle(2000);
+                setTimeout(function() {
+                    if ($('.mario').attr('style')) {
+                        $marioIsVisible = false;
+                    } else {
+                        $marioIsVisible = true;
+                    }
+                    marioVisible($marioIsVisible);
+                },2500);
+            });
+            // FadeIn
+            $('.btnFadeIn').click(function(e) {
+                $('.mario').fadeIn(2000);
+                $marioIsVisible = true;
+                marioVisible($marioIsVisible);
+            });
+            // FadeOut
+            $('.btnFadeOut').click(function(e) {
+                $('.mario').fadeOut(2000);
+                $marioIsVisible = false;
+                marioVisible($marioIsVisible);
+            });
+            // FadeTo
+            $('.btnFadeTo').click(function(e) {
+                $('.mario').fadeTo(2000, 0.3);
+                $marioIsVisible = true;
+                marioVisible($marioIsVisible);
+            });
+            // FadeToggle
+            $('.btnFadeToggle').click(function(e) {
+                $('.mario').fadeToggle(2000);
+                setTimeout(function() {
+                    if ($('.mario').attr('style')) {
+                        $marioIsVisible = false;
+                    } else {
+                        $marioIsVisible = true;
+                    }
+                    marioVisible($marioIsVisible);
+                },2500);
+            });
+            // Animate
+            $('.btnAnimate').click(function(e) {
+                $('.mario').animate({top: '100px'}, 1000)
+                           .animate({top: '0px'}, 1000);
+            });
+            // Stop
+            $('.btnStop').click(function(e) {
+                $('.mario').stop();
+            });
+
+            // Functions
+            marioVisible = ($status) => {
+                if ($status) {
+                    $('.hide').prop('disabled', false);
+                    $('.show').prop('disabled', true);
+                } else {
+                    $('.show').prop('disabled', false);
+                    $('.hide').prop('disabled', true);
+                }
+            }
+
+            marioVisible($marioIsVisible);
+        });
+    </script>
+    
+</body>
+</html>
