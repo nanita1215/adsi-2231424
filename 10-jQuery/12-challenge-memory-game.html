@@ -31,18 +31,22 @@
             width: 780px;
         }
         div.moves,
-        div.time {
+        div.time,
+        div.fmoves,
+        div.ftime {
             color: #838383;
             display: inline-block;
             font-size: 24px;
             font-family: Poppins;
             padding-left: 50px;
         }
-        div.moves {
+        div.moves,
+        div.fmoves {
             background: transparent url(images/memory-game/icon-moves.svg) no-repeat 0px center;
             margin-right: 40px;
         }
-        div.time {
+        div.time,
+        div.ftime  {
             background: transparent url(images/memory-game/icon-time.svg) no-repeat 0px center;
             margin-bottom: 20px;
         }
@@ -90,6 +94,60 @@
         div.card06 div.card-face-back {
             background: transparent url(images/memory-game/card6.png) no-repeat center;
         }
+        div.modal.hide {
+            display: none;
+        }
+        div.modal {
+            background-color: #000000cc;
+            height: 100vh;
+            position: fixed;
+            width: 100%;
+            top: 0px;
+            left: 0px;
+            z-index: 9;
+        }
+        div.modal div.data {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 40px;
+            position: relative;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+        } 
+        div.modal div.data h4 {
+            color: #838383;
+            text-align: center;
+            font-family: Poppins;
+            font-size: 2rem;
+            margin: 0px;
+        }
+        div.modal div.data input {
+            border: 1px solid #838383;
+            border-radius: 10px;
+            color: #838383;
+            display: block;
+            padding: 14px;
+            outline: none;
+            font-family: Poppins;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        div.modal div.data button {
+            background-color: #838383;
+            border: none;
+            border-radius: 10px;
+            display: block;
+            color: #ffffff;
+            cursor: pointer;
+            padding: 18px;
+            font-family: Poppins;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-top: 20px;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -98,11 +156,22 @@
             <h1> <span><a href="index.html">&larr;</a></span> Memory Game</h1>
         </header>
         <section>
+            <div class="modal hide">
+                <div class="data">
+                    <h4>Well Done!</h4>
+                    <hr>
+                    <div class="fmoves">0 moves</div>
+                    <div class="ftime">0 seconds</div>
+                    <br>
+                    <input type="text" id="username" placeholder="Enter Username">
+                    <button id="btnSave">Save</button>
+                </div>
+            </div>
             <h2 class="title-game">Matching Game</h2>
             <figure>
                 <hr>
-                <div class="moves">16 moves</div>
-                <div class="time">70 seconds</div>
+                <div class="moves">0 moves</div>
+                <div class="time">0 seconds</div>
                 <br>
                 <div class="card">
                     <div class="card-face card-face-front"></div>
@@ -159,14 +228,92 @@
     <script src="js/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            $cards  = document.querySelectorAll('div.card');
-            $ccards = ['card01', 'card01', 'card02', 'card02',
-                      'card03', 'card03', 'card04', 'card04',
-                      'card05', 'card05', 'card06', 'card06'];
+            $time      = 0;
+            $cntMoves  = 0;
+            $cntClicks = 0;
+            $cntMatch  = 0;
+            $cards     = document.querySelectorAll('div.card');
+            $ccards    = ['card01', 'card01', 'card02', 'card02',
+                          'card03', 'card03', 'card04', 'card04',
+                          'card05', 'card05', 'card06', 'card06'];
 
             $('.card').click(function() {
-                $(this).toggleClass('is-flipped');
+                //$(this).toggleClass('is-flipped');
+                if (!$(this).hasClass('active')) {
+                    $(this).addClass('is-flipped active');
+                    $cntClicks++;
+                    if ($cntClicks == 1) {
+                        $card1 = $(this);
+                    } else {
+                        $card2 = $(this);
+                        $cntClicks = 0;
+                        checkMatch();
+                    }
+                }
             });
+
+            $('#btnSave').click(function() {
+
+                 /*
+                if(localStorage.getItem("players") === null) {
+                    localStorage.removeItem("players");
+                    localStorage.removeItem("scores");
+                    var arrplayers = new Array();
+                    var arrscores  = new Array();
+                } else {
+                    var arrplayers = JSON.parse(localStorage.getItem("players"));
+                    var arrscores  = JSON.parse(localStorage.getItem("scores"));
+                }
+                
+                */ 
+
+
+
+    
+                // arrplayers.push(player);
+                // arrscores.push(psc);
+
+                // localStorage.setItem("players", JSON.stringify(arrplayers));
+                // localStorage.setItem("scores", JSON.stringify(arrscores));
+
+                window.location.replace('30_reto_eventos_tiempo.html');
+
+                $('.modal').addClass('hide');
+                setTimeout(function() {
+                    window.location.replace('12-challenge-memory-game.html');
+                }, 1000);
+            });
+
+            const checkMatch = () => {
+                $cntMoves++;
+                $('.moves').text($cntMoves + ' moves');
+                if ($card1.attr('class').substring(5,12) ==
+                    $card2.attr('class').substring(5,12)) {
+                        $cntMatch++;
+                        if ($cntMatch == 6) {
+                            clearInterval($setInt);
+                            showResult();
+                        }
+                    } else {
+                        setTimeout(function() {
+                            $card1.removeClass('is-flipped active');
+                            $card2.removeClass('is-flipped active');
+                        }, 2000);
+                    }
+            }
+
+            const showResult = () => {
+                $('.fmoves').text($cntMoves + " moves");
+                $('.ftime').text($time + " seconds");
+                $('.modal').removeClass('hide');
+            }
+
+            const getTime = () => {
+                $setInt = setInterval(function () {
+                    $time++;
+                    $('.time').text($time + ' seconds');
+                },1000);
+            }
 
             const randomCard = () => {
                 for (let i = 0; i < $cards.length; i++) {
@@ -182,6 +329,7 @@
             }
 
             randomCard();
+            getTime();
         });
     </script>
     
