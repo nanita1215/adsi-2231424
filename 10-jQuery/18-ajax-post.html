@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <style>
+        section.image {
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: cover;
+			border: 2px solid #4f5c6e;
+			margin: 20px auto;
+			height: 550px;
+			width: 400px;
+		}
+		select {
+			display: block;
+			margin: 20px auto;
+			width: 160px;
+		}
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <h1> <span><a href="index.html">&larr;</a></span> Post</h1>
+        </header>
+        <section>
+            <section class="image animated"></section>
+            <select class="images">
+                <option value="">Select Image...</option>
+                <option value="1">Naruto Uzumaki</option>
+                <option value="2">Gara</option>
+                <option value="3">Sasuke Uchiha</option>
+            </select>
+        </section>
+    </main>
+
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Events
+			$('.images').change(function(event) {
+				$img = $(this).val();
+				if($img.length > 0) {
+					$('.image').removeClass('flipInY');
+					// POST
+					$.post('php/images.php', {img: $img}, function(data) {
+						$('.image').addClass('flipInY');
+						$('.image').css('background-image', 'url('+data+')');
+					});
+				}
+			});
+        });
+    </script>
+    
+</body>
+</html>

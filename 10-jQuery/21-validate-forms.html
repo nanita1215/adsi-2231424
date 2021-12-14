@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validate Forms</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        main {
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <h1> <span><a href="index.html">&larr;</a></span> Validate Forms</h1>
+        </header>
+        <section>
+            <form action="php/processform.php" method="post">
+                <div class="form-group">
+                    <input type="text" 
+                           class="form-control" 
+                           name="fullname" 
+                           placeholder="Full Name"
+                           data-validation="length required" 
+                           data-validation-length="4-32">
+                </div>
+                <div class="form-group">
+                    <input type="number" 
+                           class="form-control" 
+                           name="age" placeholder="Age"
+                           data-validation="number">
+                </div>
+                <div class="form-group">
+                    <input type="email" 
+                           class="form-control" 
+                           name="email" 
+                           placeholder="Email"
+                           data-validation="email">
+                </div>
+                <div class="form-group">
+                    <input type="date" 
+                           class="form-control" 
+                           name="birthdate" 
+                           placeholder="Birth Date"
+                           data-validation="date"
+                           data-validation-format="dd/mm/yyyy">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success" value="Enviar Formulario">
+                    <input type="reset" class="btn btn-outline-success" value="Limpiar Formulario">
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/jquery.form-validator.min.js"></script>
+	<script src="js/lang/es.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.validate({ lang: 'en' });
+        });
+    </script>
+    
+</body>
+</html>
